@@ -1,5 +1,6 @@
 package com.sophos.Agenda_citas_laboratorio.entities;
 
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,7 +22,7 @@ public class Appoinment {
 	@Column(name = "DATE_APPOINMENT")
 	private Date date;
 	@Column(name = "HOUR")
-	private Date hour;
+	private String hour;
 	@Column(name = "ID_TEST")
 	private Integer id_test;
 	@Column(name = "ID_AFFILIATE")
@@ -43,11 +44,12 @@ public class Appoinment {
 		this.date = date;
 	}
 
-	public Date getHour() {
+	public String getHour() {
+				
 		return hour;
 	}
 
-	public void setHour(Date hour) {
+	public void setHour(String hour) {
 		this.hour = hour;
 	}
 

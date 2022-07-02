@@ -62,5 +62,8 @@ public class AppoinmentControllerImpl {
 
 		return "Test Sucess";
 	}
+	
+	
+	
 
 }
