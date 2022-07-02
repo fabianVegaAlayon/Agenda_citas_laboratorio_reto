@@ -52,6 +52,7 @@ public class TestServiceImpl implements TestService {
 			testToUpdate.setId(testUpdated.getId());
 			testToUpdate.setName(testUpdated.getName());
 			testToUpdate.setDescription(testUpdated.getDescription());
+			testRepository.save(testToUpdate);
 			return "Test update";
 
 		}

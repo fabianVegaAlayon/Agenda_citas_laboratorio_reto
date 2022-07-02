@@ -1,5 +1,6 @@
 package com.sophos.Agenda_citas_laboratorio.service.Impl;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -52,12 +53,19 @@ public class AppoinmentServiceImpl implements AppoinmentService{
 		Integer id = appoinmentUpdated.getId();
 		if(appoinmentRepository.findById(id).isPresent()) 
 		{
+			
 			Appoinment appointmentToUpdate = new Appoinment();
 			appointmentToUpdate.setId(appoinmentUpdated.getId());
 			appointmentToUpdate.setDate(appoinmentUpdated.getDate());
 			appointmentToUpdate.setHour(appoinmentUpdated.getHour());
 			appointmentToUpdate.setId_test(appoinmentUpdated.getId_test());
 			appointmentToUpdate.setId_affiliate(appoinmentUpdated.getId_affiliate());
+			System.out.println("La puta de la fecha es " + appointmentToUpdate.getDate());
+			
+			appoinmentRepository.save(appointmentToUpdate);
+			
+			
+			
 			return "Appointment updated";
 		}
 		

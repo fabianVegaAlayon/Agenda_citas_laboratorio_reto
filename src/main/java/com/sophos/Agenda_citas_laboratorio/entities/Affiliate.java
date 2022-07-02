@@ -1,6 +1,6 @@
 package com.sophos.Agenda_citas_laboratorio.entities;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
