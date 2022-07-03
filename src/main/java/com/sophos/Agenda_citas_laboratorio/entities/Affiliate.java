@@ -1,10 +1,14 @@
 package com.sophos.Agenda_citas_laboratorio.entities;
 
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +25,8 @@ public class Affiliate {
 	//@Column(name = "MAIL")
 	private String mail;
 	
+	@OneToMany(targetEntity = Appoinment.class, mappedBy = "id", fetch = FetchType.LAZY)
+	private Set<Appoinment> appoinment;
 	
 
 
@@ -55,5 +61,15 @@ public class Affiliate {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+
+	public Set<Appoinment> getAppoinment() {
+		return appoinment;
+	}
+
+	public void setAppoinment(Set<Appoinment> appoinment) {
+		this.appoinment = appoinment;
+	}
+	
+	
 
 }

@@ -5,9 +5,11 @@ package com.sophos.Agenda_citas_laboratorio.service.Impl;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sophos.Agenda_citas_laboratorio.dto.JoinDto;
 import com.sophos.Agenda_citas_laboratorio.entities.Appoinment;
 import com.sophos.Agenda_citas_laboratorio.repository.AppoinmentRepository;
 import com.sophos.Agenda_citas_laboratorio.service.AppoinmentService;
@@ -60,8 +62,8 @@ public class AppoinmentServiceImpl implements AppoinmentService{
 			appointmentToUpdate.setId(appoinmentUpdated.getId());
 			appointmentToUpdate.setDate(appoinmentUpdated.getDate());
 			appointmentToUpdate.setHour(appoinmentUpdated.getHour());
-			appointmentToUpdate.setId_test(appoinmentUpdated.getId_test());
-			appointmentToUpdate.setId_affiliate(appoinmentUpdated.getId_affiliate());
+			appointmentToUpdate.setTest(appoinmentUpdated.getTest());
+			appointmentToUpdate.setAffiliate(appoinmentUpdated.getAffiliate());
 			
 			
 			appoinmentRepository.save(appointmentToUpdate);
@@ -78,6 +80,13 @@ public class AppoinmentServiceImpl implements AppoinmentService{
 		}
 	}
 	
+	
+	public List<JoinDto> innerJoinData() {
+		return appoinmentRepository.fetchDataInnerJoin();
+	}
+
+	
+
 	
 
 }

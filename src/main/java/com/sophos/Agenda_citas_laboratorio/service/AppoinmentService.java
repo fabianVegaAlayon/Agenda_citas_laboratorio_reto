@@ -3,6 +3,7 @@ package com.sophos.Agenda_citas_laboratorio.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.sophos.Agenda_citas_laboratorio.dto.JoinDto;
 import com.sophos.Agenda_citas_laboratorio.entities.Appoinment;
 
 
@@ -22,6 +23,9 @@ public interface AppoinmentService {
 
 	// update Appoinment
 	public String put(Appoinment appoinmentUpdated);
+
+	public List<JoinDto> innerJoinData();
+	
 	
 	
 	

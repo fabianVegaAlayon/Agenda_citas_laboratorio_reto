@@ -1,16 +1,20 @@
 package com.sophos.Agenda_citas_laboratorio.entities;
 
-
 import java.util.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "APPOINMENTS")
@@ -23,10 +27,16 @@ public class Appoinment {
 	private Date date;
 	@Column(name = "HOUR")
 	private String hour;
-	@Column(name = "ID_TEST")
-	private Integer id_test;
-	@Column(name = "ID_AFFILIATE")
-	private Integer id_affiliate;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_test")
+	@Fetch(FetchMode.JOIN)
+	private Test test;
+	// @Column(name = "ID_AFFILIATE")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_affiliate")
+	@Fetch(FetchMode.JOIN)
+	private Affiliate affiliate;
 
 	public Integer getId() {
 		return id;
@@ -45,7 +55,7 @@ public class Appoinment {
 	}
 
 	public String getHour() {
-				
+
 		return hour;
 	}
 
@@ -53,20 +63,20 @@ public class Appoinment {
 		this.hour = hour;
 	}
 
-	public Integer getId_test() {
-		return id_test;
+	public Test getTest() {
+		return test;
 	}
 
-	public void setId_test(Integer id_test) {
-		this.id_test = id_test;
+	public void setTest(Test test) {
+		this.test = test;
 	}
 
-	public Integer getId_affiliate() {
-		return id_affiliate;
+	public Affiliate getAffiliate() {
+		return affiliate;
 	}
 
-	public void setId_affiliate(Integer id_affiliate) {
-		this.id_affiliate = id_affiliate;
+	public void setAffiliate(Affiliate affiliate) {
+		this.affiliate = affiliate;
 	}
 
 }
