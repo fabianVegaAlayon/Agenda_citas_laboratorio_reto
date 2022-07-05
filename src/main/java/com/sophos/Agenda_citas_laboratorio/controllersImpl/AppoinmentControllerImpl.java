@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,40 +21,63 @@ public class AppoinmentControllerImpl {
 
 	@RequestMapping(value = "/appoinments/{id}", method = RequestMethod.GET, produces = "application/json")
 
-	public Optional<Appoinment> getAById(@PathVariable Integer id) {
+	public ResponseEntity<Optional<Appoinment>> getAById(@PathVariable Integer id) {
+		if (appoinmentService.getById(id) == null || appoinmentService.getById(id).isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(appoinmentService.getById(id));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(appoinmentService.getById(id));
+		}
 
-		return appoinmentService.getById(id);
 	}
 
 	// http://localhost:8080/appoinments
 	@RequestMapping(value = "/appoinments", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<Appoinment>> getAList() {
 
-	public List<Appoinment> getAList() {
-
-		return appoinmentService.getList();
+		if (appoinmentService.getList() == null || appoinmentService.getList().isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(appoinmentService.getList());
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(appoinmentService.getList());
+		}
 
 	}
 
 	// http://localhost:8080/appoinment/add/params
 	@RequestMapping(value = "/appoinment/add", method = RequestMethod.POST, produces = "application/json")
-	public Appoinment postA(Appoinment appoinment) {
+	public ResponseEntity<Appoinment> postA(Appoinment appoinment) {
 
-		return appoinmentService.post(appoinment);
+		if (appoinmentService.post(appoinment) == null) {
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(appoinmentService.post(appoinment));
+		} else {
+			return ResponseEntity.status(HttpStatus.CREATED).body(appoinmentService.post(appoinment));
+		}
+
 	}
 
 	// http://localhost:8080/appoinment/delete/n
 	@RequestMapping(value = "/appoinment/delete/{id}", method = { RequestMethod.DELETE,
 			RequestMethod.GET }, produces = "application/json")
-	public String deleteA(@PathVariable Integer id) {
+	public ResponseEntity<String> deleteA(@PathVariable Integer id) {
 
-		return appoinmentService.delete(id);
+		if (appoinmentService.delete(id).contains("Error")) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(appoinmentService.delete(id));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(appoinmentService.delete(id));
+		}
+
 	}
 
 	// http://localhost:8080/appoinment/update/
 	@RequestMapping(value = "/appoinment/update", method = RequestMethod.PUT, produces = "application/json")
-	public String putA(Appoinment appoinment) {
+	public ResponseEntity<String> putA(Appoinment appoinment) {
 
-		return appoinmentService.put(appoinment);
+		if (appoinmentService.put(appoinment).contains("Error")) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appoinmentService.put(appoinment));
+		} else {
+			return ResponseEntity.status(HttpStatus.CREATED).body(appoinmentService.put(appoinment));
+		}
+
 	}
 
 	// http://localhost:8080/appoinment/test
@@ -62,8 +87,5 @@ public class AppoinmentControllerImpl {
 
 		return "Test Sucess";
 	}
-	
-	
-	
 
 }

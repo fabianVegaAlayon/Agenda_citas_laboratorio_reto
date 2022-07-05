@@ -17,7 +17,7 @@ import com.sophos.Agenda_citas_laboratorio.entities.Master;
 public interface MasterRepository extends JpaRepository<Master, Integer>{
 	
 	
-	@Query(value = "SELECT m.* FROM Masters m WHERE m.date_appoinment like %?1%", nativeQuery = true)
+	@Query(value = "SELECT m.* FROM Masters m WHERE m.date_appoinment = ?1", nativeQuery = true)
 	Optional<Master> findUserByDate(String date);
 	
 	
