@@ -42,8 +42,9 @@ public class AffiliateServiceImpl implements AffiliateService {
 		if (affiliateRepository.findById(id).isPresent()) {
 			affiliateRepository.deleteById(id);
 			return "Affiliate deleted success";
-		}
+		}else {
 		return "Error! the Affiliate doesn't Exist";
+		}
 	}
 
 	@Override
