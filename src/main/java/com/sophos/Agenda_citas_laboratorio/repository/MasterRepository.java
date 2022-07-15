@@ -3,7 +3,7 @@ package com.sophos.Agenda_citas_laboratorio.repository;
 
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +18,7 @@ public interface MasterRepository extends JpaRepository<Master, Integer>{
 	
 	
 	@Query(value = "SELECT m.* FROM Masters m WHERE m.date_appoinment = ?1", nativeQuery = true)
-	Optional<Master> findUserByDate(String date);
+	List<Master> findUserByDate(String date);
 	
 	
 	@Query(value = "SELECT m.* FROM Masters m WHERE m.ID_AFFILIATE= ?1", nativeQuery = true)

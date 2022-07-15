@@ -1,6 +1,5 @@
 package com.sophos.Agenda_citas_laboratorio.entities;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-
 
 @Entity
 @Table(name = "APPOINMENTS")
@@ -27,6 +24,26 @@ public class Appoinment {
 	private Integer id_test;
 	@Column(name = "ID_AFFILIATE")
 	private Integer id_affiliate;
+
+	public Appoinment() {
+	}
+
+	public Appoinment(Date date, String hour, Integer id_test, Integer id_affiliate) {
+
+		this.date = date;
+		this.hour = hour;
+		this.id_test = id_test;
+		this.id_affiliate = id_affiliate;
+	}
+
+	public Appoinment(Integer id, Date date, String hour, Integer id_test, Integer id_affiliate) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.hour = hour;
+		this.id_test = id_test;
+		this.id_affiliate = id_affiliate;
+	}
 
 	public Integer getId() {
 		return id;
@@ -45,7 +62,7 @@ public class Appoinment {
 	}
 
 	public String getHour() {
-				
+
 		return hour;
 	}
 
@@ -67,6 +84,12 @@ public class Appoinment {
 
 	public void setId_affiliate(Integer id_affiliate) {
 		this.id_affiliate = id_affiliate;
+	}
+
+	@Override
+	public String toString() {
+		return "Appoinment [id=" + id + ", date=" + date + ", hour=" + hour + ", id_test=" + id_test + ", id_affiliate="
+				+ id_affiliate + "]";
 	}
 
 }

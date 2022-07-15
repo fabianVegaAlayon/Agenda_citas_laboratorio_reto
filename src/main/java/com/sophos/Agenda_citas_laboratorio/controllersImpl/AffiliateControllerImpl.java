@@ -50,16 +50,16 @@ public class AffiliateControllerImpl {
 	public ResponseEntity<Affiliate> postA(Affiliate affiliate) {
 
 		if (affiliateService.post(affiliate) == null) {
-			System.out.println(affiliate);
+		
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(affiliateService.post(affiliate));
 		} else {
-			System.out.println(affiliate);
+
 			return ResponseEntity.status(HttpStatus.CREATED).body(affiliateService.post(affiliate));
 		}
 
 	}
 
-	@RequestMapping(value = "/affiliates/delete/{id}", method =  {RequestMethod.DELETE,
+	@RequestMapping(value = "/affiliates/delete/{id}", method = { RequestMethod.DELETE,
 			RequestMethod.GET }, produces = "application/json")
 	public ResponseEntity<String> deleteA(@PathVariable Integer id) {
 		if (affiliateService.delete(id).contains("Error")) {
@@ -74,12 +74,11 @@ public class AffiliateControllerImpl {
 	public ResponseEntity<String> putA(Affiliate affiliate) {
 
 		if (affiliateService.put(affiliate).contains("Error")) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(affiliateService.put(affiliate));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
 		} else {
-			return ResponseEntity.status(HttpStatus.CREATED).body(affiliateService.put(affiliate));
+			return ResponseEntity.status(HttpStatus.CREATED).body("succes");
 		}
 
-		
 	}
 
 	// http://localhost:8080/test

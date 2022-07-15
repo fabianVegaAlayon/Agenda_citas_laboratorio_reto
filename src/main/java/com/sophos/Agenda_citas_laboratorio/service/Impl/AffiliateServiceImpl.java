@@ -59,9 +59,9 @@ public class AffiliateServiceImpl implements AffiliateService {
 			affiliateRepository.save(affiliateToUpdate);
 			return "Affiliate Updated";
 
-		}
+		}else {
 
-		return "Error to update the Affiliate";
+		return "Error to update the Affiliate";}
 	}
 
 }

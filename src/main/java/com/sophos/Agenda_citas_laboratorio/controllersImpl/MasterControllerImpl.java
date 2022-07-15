@@ -1,7 +1,6 @@
 package com.sophos.Agenda_citas_laboratorio.controllersImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,7 @@ public class MasterControllerImpl {
 	MasterService masterService;
 
 	@RequestMapping(value = "/master/date/{date}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<Optional<Master>> getByDate(@PathVariable String date) {
+	public ResponseEntity<List<Master>> getByDate(@PathVariable String date) {
 		if (masterService.getByDate(date) == null || masterService.getByDate(date).isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(masterService.getByDate(date));
 		} else {

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TEST")
-public class Test {
+public class TestL {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -18,6 +18,21 @@ public class Test {
 	private String name;
 	@Column(name = "DESCRIPTION")
 	private String description;
+
+	public TestL() {
+	}
+
+	public TestL(String name, String description) {
+
+		this.name = name;
+		this.description = description;
+	}
+
+	public TestL(Integer id, String name, String description) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
 
 	public Integer getId() {
 		return id;
@@ -42,5 +57,13 @@ public class Test {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "TestL [id=" + id + ", name=" + name + ", description=" + description + "]";
+	}
+	
+	
+	
 
 }

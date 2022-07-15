@@ -32,6 +32,13 @@ public class AppoinmentServiceImpl implements AppoinmentService{
 	public Appoinment post(Appoinment appoinmentNew) {
 		if(appoinmentNew != null ) 
 		{
+			
+		/*	SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+			try{
+			Date date = DateFor.parse(appoinmentNew.getDate().toString());
+			appoinmentNew.setDate(date);
+			}catch (ParseException e) {e.printStackTrace();}*/
+			
 			return appoinmentRepository.save(appoinmentNew);
 		}
 		return new Appoinment();

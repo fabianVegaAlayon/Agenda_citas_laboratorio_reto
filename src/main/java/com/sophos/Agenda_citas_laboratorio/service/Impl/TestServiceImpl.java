@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sophos.Agenda_citas_laboratorio.entities.Test;
+import com.sophos.Agenda_citas_laboratorio.entities.TestL;
 import com.sophos.Agenda_citas_laboratorio.repository.TestRepository;
 import com.sophos.Agenda_citas_laboratorio.service.TestService;
 @Service
@@ -16,23 +16,23 @@ public class TestServiceImpl implements TestService {
 	TestRepository testRepository;
 
 	@Override
-	public List<Test> getList() {
+	public List<TestL> getList() {
 
 		return testRepository.findAll();
 	}
 
 	@Override
-	public Optional<Test> getById(Integer id) {
-		Optional<Test> test = testRepository.findById(id);
+	public Optional<TestL> getById(Integer id) {
+		Optional<TestL> test = testRepository.findById(id);
 		return test;
 	}
 
 	@Override
-	public Test post(Test testNew) {
+	public TestL post(TestL testNew) {
 		if (testNew != null) {
 			return testRepository.save(testNew);
 		}
-		return new Test();
+		return new TestL();
 	}
 
 	@Override
@@ -45,10 +45,10 @@ public class TestServiceImpl implements TestService {
 	}
 
 	@Override
-	public String put(Test testUpdated) {
+	public String put(TestL testUpdated) {
 		Integer id = testUpdated.getId();
 		if (testRepository.findById(id).isPresent()) {
-			Test testToUpdate = new Test();
+			TestL testToUpdate = new TestL();
 			testToUpdate.setId(testUpdated.getId());
 			testToUpdate.setName(testUpdated.getName());
 			testToUpdate.setDescription(testUpdated.getDescription());

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sophos.Agenda_citas_laboratorio.entities.Test;
+import com.sophos.Agenda_citas_laboratorio.entities.TestL;
 import com.sophos.Agenda_citas_laboratorio.service.TestService;
 
 @RestController
@@ -21,7 +21,7 @@ public class TestControllerImpl {
 
 	// http://localhost:8080/tests/id
 	@RequestMapping(value = "/test/{id}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<Optional<Test>> getAById(@PathVariable Integer id) {
+	public ResponseEntity<Optional<TestL>> getAById(@PathVariable Integer id) {
 
 		if (testService.getById(id) == null || testService.getById(id).isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(testService.getById(id));
@@ -33,7 +33,7 @@ public class TestControllerImpl {
 
 	// http://localhost:8080/tests
 	@RequestMapping(value = "/tests", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<Test>> getAList() {
+	public ResponseEntity<List<TestL>> getAList() {
 
 		if (testService.getList() == null || testService.getList().isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(testService.getList());
@@ -45,7 +45,7 @@ public class TestControllerImpl {
 
 	// http://localhost:8080/test/add
 	@RequestMapping(value = "/test/add", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Test> postA(Test test) {
+	public ResponseEntity<TestL> postA(TestL test) {
 
 		if (testService.post(test) == null) {
 
@@ -71,7 +71,7 @@ public class TestControllerImpl {
 
 	// http://localhost:8080/test/update
 	@RequestMapping(value = "/test/update", method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<String> put(Test test) {
+	public ResponseEntity<String> put(TestL test) {
 
 		if (testService.put(test).contains("Error")) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(testService.put(test));

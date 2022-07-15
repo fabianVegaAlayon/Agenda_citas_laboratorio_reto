@@ -1,6 +1,5 @@
 package com.sophos.Agenda_citas_laboratorio.entities;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,17 +11,32 @@ import javax.persistence.Table;
 public class Affiliate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@Column(name = "ID")
+	// @Column(name = "ID")
 	private Integer id;
-	//@Column(name = "NAME")
+	// @Column(name = "NAME")
 	private String name;
-	//@Column(name = "AGE")
+	// @Column(name = "AGE")
 	private Integer age;
-	//@Column(name = "MAIL")
+	// @Column(name = "MAIL")
 	private String mail;
-	
-	
 
+	public Affiliate() {
+	}
+
+	public Affiliate(String name, Integer age, String mail) {
+
+		this.name = name;
+		this.age = age;
+		this.mail = mail;
+	}
+
+	public Affiliate(Integer id, String name, Integer age, String mail) {
+
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.mail = mail;
+	}
 
 	public Integer getId() {
 		return id;
