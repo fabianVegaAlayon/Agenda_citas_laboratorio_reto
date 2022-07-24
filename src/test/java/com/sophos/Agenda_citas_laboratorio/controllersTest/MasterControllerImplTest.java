@@ -62,7 +62,7 @@ class MasterControllerImplTest {
 		when(masterService.getByDate(fecha.toString())).thenReturn(Datos.getAffiliateByDate());
 		masterMockMvc.perform(get("/master/date/" + fecha.toString()).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON));
-		verify(masterService, times(3)).getByDate(fecha.toString());
+		verify(masterService, times(1)).getByDate(fecha.toString());
 	}
 
 }

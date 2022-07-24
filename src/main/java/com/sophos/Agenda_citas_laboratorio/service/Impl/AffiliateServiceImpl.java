@@ -41,9 +41,9 @@ public class AffiliateServiceImpl implements AffiliateService {
 	public String delete(Integer id) {
 		if (affiliateRepository.findById(id).isPresent()) {
 			affiliateRepository.deleteById(id);
-			return "Affiliate deleted success";
-		}else {
-		return "Error! the Affiliate doesn't Exist";
+			return "Affiliate Delete Success";
+		} else {
+			return "Error! the Affiliate doesn't Exist";
 		}
 	}
 
@@ -59,9 +59,10 @@ public class AffiliateServiceImpl implements AffiliateService {
 			affiliateRepository.save(affiliateToUpdate);
 			return "Affiliate Updated";
 
-		}else {
+		} else {
 
-		return "Error to update the Affiliate";}
+			return "Error to update the Affiliate";
+		}
 	}
 
 }

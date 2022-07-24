@@ -70,4 +70,12 @@ public class Affiliate {
 		this.mail = mail;
 	}
 
+	@Override
+	public String toString() {
+		return "Affiliate [id=" + id + ", name=" + name + ", age=" + age + ", mail=" + mail + "]";
+	}
+
+	
+	
+	
 }

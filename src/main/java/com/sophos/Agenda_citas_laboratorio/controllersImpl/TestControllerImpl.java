@@ -1,5 +1,6 @@
 package com.sophos.Agenda_citas_laboratorio.controllersImpl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +23,11 @@ public class TestControllerImpl {
 	// http://localhost:8080/tests/id
 	@RequestMapping(value = "/test/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Optional<TestL>> getAById(@PathVariable Integer id) {
-
-		if (testService.getById(id) == null || testService.getById(id).isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(testService.getById(id));
+		Optional<TestL> listTestLaboratory = testService.getById(id);
+		if (listTestLaboratory == null || listTestLaboratory.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(listTestLaboratory);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(testService.getById(id));
+			return ResponseEntity.status(HttpStatus.OK).body(listTestLaboratory);
 		}
 
 	}
@@ -34,25 +35,25 @@ public class TestControllerImpl {
 	// http://localhost:8080/tests
 	@RequestMapping(value = "/tests", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<TestL>> getAList() {
-
-		if (testService.getList() == null || testService.getList().isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(testService.getList());
+		List<TestL> listTestLaboratory = testService.getList();
+		if (listTestLaboratory == null || listTestLaboratory.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(listTestLaboratory);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(testService.getList());
+			return ResponseEntity.status(HttpStatus.OK).body(listTestLaboratory);
 		}
 
 	}
 
 	// http://localhost:8080/test/add
 	@RequestMapping(value = "/test/add", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<TestL> postA(TestL test) {
+	public ResponseEntity<List<TestL>> postA(TestL test) {
+		List<TestL> listTestLaboratory = Arrays.asList(testService.post(test));
+		if (listTestLaboratory == null) {
 
-		if (testService.post(test) == null) {
-
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(testService.post(test));
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(listTestLaboratory);
 		} else {
 
-			return ResponseEntity.status(HttpStatus.CREATED).body(testService.post(test));
+			return ResponseEntity.status(HttpStatus.CREATED).body(listTestLaboratory);
 		}
 
 	}
@@ -60,11 +61,11 @@ public class TestControllerImpl {
 	@RequestMapping(value = "/test/delete/{id}", method = { RequestMethod.DELETE,
 			RequestMethod.GET }, produces = "application/json")
 	public ResponseEntity<String> delete(@PathVariable Integer id) {
-
-		if (testService.delete(id).contains("Error")) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(testService.delete(id));
+		String messagge = testService.delete(id);
+		if (messagge.contains("Error")) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(messagge);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(testService.delete(id));
+			return ResponseEntity.status(HttpStatus.OK).body(messagge);
 		}
 
 	}
@@ -72,14 +73,13 @@ public class TestControllerImpl {
 	// http://localhost:8080/test/update
 	@RequestMapping(value = "/test/update", method = RequestMethod.PUT, produces = "application/json")
 	public ResponseEntity<String> put(TestL test) {
-
+		String messagge = testService.put(test);
 		if (testService.put(test).contains("Error")) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(testService.put(test));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(messagge);
 		} else {
-			return ResponseEntity.status(HttpStatus.CREATED).body(testService.put(test));
+			return ResponseEntity.status(HttpStatus.CREATED).body(messagge);
 		}
-		
-		
+
 	}
 
 	@RequestMapping(value = "/test/tst", method = RequestMethod.GET, produces = "application/json")

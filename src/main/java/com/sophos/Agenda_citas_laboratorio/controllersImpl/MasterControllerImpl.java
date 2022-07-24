@@ -20,20 +20,23 @@ public class MasterControllerImpl {
 
 	@RequestMapping(value = "/master/date/{date}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Master>> getByDate(@PathVariable String date) {
-		if (masterService.getByDate(date) == null || masterService.getByDate(date).isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(masterService.getByDate(date));
+		List<Master> masterList = masterService.getByDate(date);
+
+		if (masterList == null || masterList.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(masterList);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(masterService.getByDate(date));
+			return ResponseEntity.status(HttpStatus.OK).body(masterList);
 		}
 
 	}
 
 	@RequestMapping(value = "/master/id/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Master>> getByAffiliate(@PathVariable Integer id) {
+		List<Master> masterList = masterService.getByAffiliates(id);
 		if (masterService.getByAffiliates(id).isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(masterService.getByAffiliates(id));
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(masterList);
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(masterService.getByAffiliates(id));
+		return ResponseEntity.status(HttpStatus.OK).body(masterList);
 
 	}
 

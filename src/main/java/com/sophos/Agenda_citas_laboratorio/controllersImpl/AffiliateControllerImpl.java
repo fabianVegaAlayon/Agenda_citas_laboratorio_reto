@@ -1,5 +1,6 @@
 package com.sophos.Agenda_citas_laboratorio.controllersImpl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,10 +26,12 @@ public class AffiliateControllerImpl {
 
 	@RequestMapping(value = "/affiliates/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Optional<Affiliate>> getAById(@PathVariable Integer id) {
-		if (affiliateService.getById(id) == null || affiliateService.getById(id).isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(affiliateService.getById(id));
+		Optional<Affiliate> listAffiliate = affiliateService.getById(id);
+
+		if (listAffiliate == null || listAffiliate.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(listAffiliate);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(affiliateService.getById(id));
+			return ResponseEntity.status(HttpStatus.OK).body(listAffiliate);
 		}
 
 	}
@@ -36,25 +39,27 @@ public class AffiliateControllerImpl {
 	// http://localhost:8080/affiliates
 	@RequestMapping(value = "/affiliates", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Affiliate>> getAList() {
+		List<Affiliate> affiliateList = affiliateService.getList();
 
-		if (affiliateService.getList() == null || affiliateService.getList().isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(affiliateService.getList());
+		if (affiliateList == null || affiliateList.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(affiliateList);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(affiliateService.getList());
+			return ResponseEntity.status(HttpStatus.OK).body(affiliateList);
 		}
 
 	}
 
 	// http://localhost:8080/affiliates/1
 	@RequestMapping(value = "/affiliates/add", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Affiliate> postA(Affiliate affiliate) {
+	public ResponseEntity<List<Affiliate>> postA(Affiliate affiliate) {
 
-		if (affiliateService.post(affiliate) == null) {
-		
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(affiliateService.post(affiliate));
+		List<Affiliate> affiliateList = Arrays.asList(affiliateService.post(affiliate));
+		if (affiliateList == null) {
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(affiliateList);
 		} else {
 
-			return ResponseEntity.status(HttpStatus.CREATED).body(affiliateService.post(affiliate));
+			return ResponseEntity.status(HttpStatus.CREATED).body(affiliateList);
 		}
 
 	}
@@ -62,21 +67,25 @@ public class AffiliateControllerImpl {
 	@RequestMapping(value = "/affiliates/delete/{id}", method = { RequestMethod.DELETE,
 			RequestMethod.GET }, produces = "application/json")
 	public ResponseEntity<String> deleteA(@PathVariable Integer id) {
-		if (affiliateService.delete(id).contains("Error")) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(affiliateService.delete(id));
+		String messagge = affiliateService.delete(id);
+		if (messagge.contains("Error")) {
+
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(messagge);
+
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(affiliateService.delete(id));
+
+			return ResponseEntity.status(HttpStatus.OK).body(messagge);
 		}
 
 	}
 
 	@RequestMapping(value = "/affiliates/update", method = RequestMethod.PUT, produces = "application/json")
 	public ResponseEntity<String> putA(Affiliate affiliate) {
-
-		if (affiliateService.put(affiliate).contains("Error")) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
+		String messagge = affiliateService.put(affiliate);
+		if (messagge.contains("Error")) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(messagge);
 		} else {
-			return ResponseEntity.status(HttpStatus.CREATED).body("succes");
+			return ResponseEntity.status(HttpStatus.CREATED).body(messagge);
 		}
 
 	}

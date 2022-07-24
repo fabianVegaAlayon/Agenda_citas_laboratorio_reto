@@ -1,5 +1,6 @@
 package com.sophos.Agenda_citas_laboratorio.controllersImpl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,10 +23,11 @@ public class AppoinmentControllerImpl {
 	@RequestMapping(value = "/appoinments/{id}", method = RequestMethod.GET, produces = "application/json")
 
 	public ResponseEntity<Optional<Appoinment>> getAById(@PathVariable Integer id) {
-		if (appoinmentService.getById(id) == null || appoinmentService.getById(id).isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(appoinmentService.getById(id));
+		Optional<Appoinment> listAppoinment = appoinmentService.getById(id);
+		if (listAppoinment == null || listAppoinment.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(listAppoinment);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(appoinmentService.getById(id));
+			return ResponseEntity.status(HttpStatus.OK).body(listAppoinment);
 		}
 
 	}
@@ -33,24 +35,24 @@ public class AppoinmentControllerImpl {
 	// http://localhost:8080/appoinments
 	@RequestMapping(value = "/appoinments", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Appoinment>> getAList() {
-
-		if (appoinmentService.getList() == null || appoinmentService.getList().isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(appoinmentService.getList());
+		List<Appoinment> appoinmentList = appoinmentService.getList();
+		if (appoinmentList == null || appoinmentList.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(appoinmentList);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(appoinmentService.getList());
+			return ResponseEntity.status(HttpStatus.OK).body(appoinmentList);
 		}
 
 	}
 
 	// http://localhost:8080/appoinment/add/params
 	@RequestMapping(value = "/appoinment/add", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Appoinment> postA(Appoinment appoinment) {
+	public ResponseEntity<List<Appoinment>> postA(Appoinment appoinment) {
+		List<Appoinment> appoinmentList = Arrays.asList(appoinmentService.post(appoinment));
+		if (appoinmentList == null) {
 
-		if (appoinmentService.post(appoinment) == null) {
-
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(appoinmentService.post(appoinment));
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(appoinmentList);
 		} else {
-			return ResponseEntity.status(HttpStatus.CREATED).body(appoinmentService.post(appoinment));
+			return ResponseEntity.status(HttpStatus.CREATED).body(appoinmentList);
 		}
 
 	}
@@ -59,11 +61,11 @@ public class AppoinmentControllerImpl {
 	@RequestMapping(value = "/appoinment/delete/{id}", method = { RequestMethod.DELETE,
 			RequestMethod.GET }, produces = "application/json")
 	public ResponseEntity<String> deleteA(@PathVariable Integer id) {
-
-		if (appoinmentService.delete(id).contains("Error")) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(appoinmentService.delete(id));
+		String messagge = appoinmentService.delete(id);
+		if (messagge.contains("Error")) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(messagge);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(appoinmentService.delete(id));
+			return ResponseEntity.status(HttpStatus.OK).body(messagge);
 		}
 
 	}
@@ -71,11 +73,11 @@ public class AppoinmentControllerImpl {
 	// http://localhost:8080/appoinment/update/
 	@RequestMapping(value = "/appoinment/update", method = RequestMethod.PUT, produces = "application/json")
 	public ResponseEntity<String> putA(Appoinment appoinment) {
-
+		String messagge = appoinmentService.put(appoinment);
 		if (appoinmentService.put(appoinment).contains("Error")) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appoinmentService.put(appoinment));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(messagge);
 		} else {
-			return ResponseEntity.status(HttpStatus.CREATED).body(appoinmentService.put(appoinment));
+			return ResponseEntity.status(HttpStatus.CREATED).body(messagge);
 		}
 
 	}

@@ -53,6 +53,7 @@ public class Datos {
 
 	public static Appoinment newAppoinment() throws ParseException {
 		Date fecha = (Date) formato.parse("10/12/2023");
+		
 		return new Appoinment(2, fecha, "15:55:24", 2, 1);
 	}
 
@@ -90,5 +91,11 @@ public class Datos {
 
 		return list;
 	}
+	
+	public static String whenTheAffiliateIsDeleted() 
+	{
+		return "Success";
+	}
+	
 
 }
