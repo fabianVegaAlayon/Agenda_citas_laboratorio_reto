@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sophos.Agenda_citas_laboratorio.entities.Appoinment;
 import com.sophos.Agenda_citas_laboratorio.service.AppoinmentService;
-
+@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
 @RestController
 public class AppoinmentControllerImpl {
 	@Autowired
 	AppoinmentService appoinmentService;
 
-	@RequestMapping(value = "/appoinments/{id}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/appoinment/{id}", method = RequestMethod.GET, produces = "application/json")
 
 	public ResponseEntity<Optional<Appoinment>> getAById(@PathVariable Integer id) {
 		Optional<Appoinment> listAppoinment = appoinmentService.getById(id);
@@ -33,7 +34,7 @@ public class AppoinmentControllerImpl {
 	}
 
 	// http://localhost:8080/appoinments
-	@RequestMapping(value = "/appoinments", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/appoinment", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Appoinment>> getAList() {
 		List<Appoinment> appoinmentList = appoinmentService.getList();
 		if (appoinmentList == null || appoinmentList.isEmpty()) {
